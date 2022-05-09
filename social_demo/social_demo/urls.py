@@ -32,6 +32,7 @@ router.register(r'likes', LikeViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('auth/signup/', SignupUserView.as_view()),
     path('api/jwt/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/jwt/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
