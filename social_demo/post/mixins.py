@@ -2,7 +2,7 @@ from django.db.utils import IntegrityError
 from rest_framework import serializers
 
 
-class AutofileAuthorMixin:
+class AutofillAuthorMixin:
     def perform_creation(self, serializer):
         try:
             serializer.save(author=self.request.user)
