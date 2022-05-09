@@ -5,6 +5,7 @@ from rest_framework.generics import CreateAPIView
 
 from post.models import Post, Like
 from post.serializers import UserSerializer, PostSerializer, LikeSerializer
+from post.mixins import AutofillAuthorMixin
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -18,13 +19,13 @@ class SignupUserView(CreateAPIView):
     serializer_class = UserSerializer
 
 
-class PostViewSet(viewsets.ModelViewSet):
+class PostViewSet(AutofillAuthorMixin, viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = (permissions.IsAuthenticated)
 
 
-class LikeViewSet(viewsets.ModelViewSet):
+class LikeViewSet(AutofillAuthorMixin, viewsets.ModelViewSet):
     queryset = Like.objects.all()
     serializer_class = LikeSerializer
     permission_classes = (permissions.IsAuthenticated)
