@@ -16,6 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
 
 from post.views import UserViewSet, SignupUserView, PostViewSet, LikeViewSet
 
@@ -28,4 +33,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('auth/signup/', SignupUserView.as_view()),
+    path('api/jwt/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/jwt/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/jwt/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
