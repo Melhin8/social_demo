@@ -25,8 +25,14 @@ class PostViewSet(AutofillAuthorMixin, viewsets.ModelViewSet):
     serializer_class = PostSerializer
     permission_classes = (permissions.IsAuthenticated, IsAuthorPermission)
 
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
 
 class LikeViewSet(AutofillAuthorMixin, viewsets.ModelViewSet):
     queryset = Like.objects.all()
     serializer_class = LikeSerializer
     permission_classes = (permissions.IsAuthenticated, IsAuthorPermission)
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
