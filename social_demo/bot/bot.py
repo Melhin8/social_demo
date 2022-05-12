@@ -3,11 +3,11 @@
 import configparser
 import random
 import requests
-# from random import randint, shuffle
 import string
 
 
 def parse_config() -> tuple:
+    '''Parse config.ini and return tulpe'''
     config = configparser.ConfigParser()
     config.read('config.ini')
     number_of_users = int(config['bot']['number_of_users'])
@@ -16,12 +16,14 @@ def parse_config() -> tuple:
     return (number_of_users, max_posts_per_user, max_likes_per_user)
 
 
-def string_generator(size: int) -> tuple:
+def string_generator(size: int) -> str:
+    '''Generate a string with a given length and return str'''
     chars = string.ascii_letters + string.digits
     return ''.join(random.choice(chars) for _ in range(size))
 
 
 def signup_user(user: str) -> tuple:
+    '''User registration and return tuple'''
     username = f"test_{user}"
     password = "Some_Strong_PassWorld"
     email = f"{username}@test.com"
@@ -37,6 +39,7 @@ def signup_user(user: str) -> tuple:
 
 
 def get_jwt_token(user: str) -> str:
+    '''Get tokken and return str'''
     r = requests.post(
         f"{url}api/jwt/",
         data={
@@ -48,6 +51,7 @@ def get_jwt_token(user: str) -> str:
 
 
 def post(token: str) -> int:
+    '''Create a post and return int'''
     r = requests.post(
         f"{url}api/posts/",
         data={
@@ -62,6 +66,7 @@ def post(token: str) -> int:
 
 
 def like(token: str, post_id: int) -> int:
+    '''Create a like and return int'''
     r = requests.post(
         f"{url}api/likes/",
         data={

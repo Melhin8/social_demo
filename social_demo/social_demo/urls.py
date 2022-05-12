@@ -21,6 +21,11 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView
+)
 
 from post.views import UserViewSet, SignupUserView, PostViewSet, LikeViewSet
 
@@ -37,4 +42,11 @@ urlpatterns = [
     path('api/jwt/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/jwt/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/jwt/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(
+        url_name='schema'
+    ), name='swagger-ui'),
+    path('api/schema/redoc/', SpectacularRedocView.as_view(
+        url_name='schema'
+    ), name='redoc'),
 ]
