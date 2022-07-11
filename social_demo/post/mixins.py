@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 
 class AutofillAuthorMixin:
-    def perform_creation(self, serializer):
+    def perform_create(self, serializer):
         try:
             serializer.save(author=self.request.user)
         except IntegrityError:
